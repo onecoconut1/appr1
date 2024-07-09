@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 const useSecureCookies = process.env.NEXTAUTH_URL.startsWith("https://");
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(process.env.NEXTAUTH_URL).hostname;
-const rootDomain = "renocampus.com";
+const rootDomain = "vercel.app";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
