@@ -4,7 +4,7 @@ const useSecureCookies = process.env.NEXTAUTH_URL.startsWith("https://");
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(process.env.NEXTAUTH_URL).hostname;
 const rootDomain = "vercel.app";
-console.log("hostName", hostName);
+console.log("hostName", hostName, useSecureCookies);
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
