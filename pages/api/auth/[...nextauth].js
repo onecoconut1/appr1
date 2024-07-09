@@ -21,7 +21,7 @@ export const authOptions = {
     sessionToken: {
       name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
       options: {
-        httpOnly: true,
+        // httpOnly: true,
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
