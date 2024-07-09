@@ -18,18 +18,18 @@ export const authOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  cookies: {
-    sessionToken: {
-      name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
-      options: {
-        httpOnly: useSecureCookies ? false : true,
-        sameSite: "lax",
-        path: "/",
-        secure: useSecureCookies,
-        domain: hostName == "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
-      },
-    },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
+  //     options: {
+  //       httpOnly: useSecureCookies ? false : true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: useSecureCookies,
+  //       domain: hostName == "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
+  //     },
+  //   },
+  // },
 };
 
 export default NextAuth(authOptions);
