@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import { getSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -115,4 +116,16 @@ export default function Home() {
       </div>
     </main>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  console.log(session);
+  // console.log(JSON.stringify(student));
+  return {
+    props: {
+      ...session,
+    },
+  };
 }
