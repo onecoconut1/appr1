@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 const useSecureCookies = process.env.NEXTAUTH_URL.startsWith("https://");
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(process.env.NEXTAUTH_URL).hostname;
-const rootDomain = "vercel.app";
+const rootDomain = "caashishkapoor.com";
 console.log("hostName", hostName, useSecureCookies);
 console.log("Cookie settings:", {
   name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
