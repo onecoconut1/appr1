@@ -5,6 +5,16 @@ const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(process.env.NEXTAUTH_URL).hostname;
 const rootDomain = "vercel.app";
 console.log("hostName", hostName, useSecureCookies);
+console.log("Cookie settings:", {
+  name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
+  options: {
+    httpOnly: useSecureCookies ? false : true,
+    sameSite: "lax",
+    path: "/",
+    secure: useSecureCookies,
+    domain: hostName == "localhost" ? hostName : "." + rootDomain,
+  },
+});
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -22,7 +32,7 @@ export const authOptions = {
     sessionToken: {
       name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
       options: {
-        httpOnly: useSecureCookies ? false : true,
+        httpOnly: true,
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
