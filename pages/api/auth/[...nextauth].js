@@ -36,7 +36,7 @@ export const authOptions = {
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
-        // domain: hostName == "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
+        domain: hostName == "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
       },
     },
   },
