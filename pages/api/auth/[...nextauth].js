@@ -4,6 +4,7 @@ const useSecureCookies = process.env.NEXTAUTH_URL.startsWith("https://");
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(process.env.NEXTAUTH_URL).hostname;
 const rootDomain = "vercel.app";
+console.log("hostName", hostName);
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -17,18 +18,18 @@ export const authOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  // cookies: {
-  //   sessionToken: {
-  //     name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
-  //     options: {
-  //       // httpOnly: true,
-  //       sameSite: "lax",
-  //       path: "/",
-  //       secure: useSecureCookies,
-  //       domain: hostName == "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
-  //     },
-  //   },
-  // },
+  cookies: {
+    sessionToken: {
+      name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
+      options: {
+        // httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+        domain: hostName == "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
+      },
+    },
+  },
 };
 
 export default NextAuth(authOptions);
