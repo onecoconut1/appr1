@@ -4,7 +4,7 @@ import { getSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ user }) {
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
@@ -44,7 +44,7 @@ export default function Home() {
           priority
         />
       </div>
-
+      <pre>{JSON.stringify(user, null, 2)}</pre>
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         <a
           href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
