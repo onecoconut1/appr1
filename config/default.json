@@ -1,0 +1,21 @@
+{
+  "name": "Default Site",
+  "theme": {
+    "primary": "#000000",
+    "secondary": "#333333",
+    "background": "#ffffff",
+    "text": "#000000"
+  },
+  "features": {
+    "enableBlog": true,
+    "enableEvents": true,
+    "enableCourses": true
+  },
+  "navigation": {
+    "primary": [
+      { "label": "Home", "path": "/" },
+      { "label": "About", "path": "/about" },
+      { "label": "Contact", "path": "/contact" }
+    ]
+  }
+}
