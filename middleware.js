@@ -7,21 +7,40 @@ const domains = {
 };
 
 export function middleware(request) {
-  const hostname = request.headers.get("host") || "";
+  const hostname = request.headers.get("host");
   const siteId = domains[hostname];
+
+  // For debugging
+  console.log({
+    hostname,
+    siteId,
+    url: request.url,
+    pathname: request.nextUrl.pathname,
+  });
 
   if (!siteId) {
     return new NextResponse("Not Found", { status: 404 });
   }
 
-  // Get the pathname, use / if empty
-  const pathname = request.nextUrl.pathname || "/";
-
-  return NextResponse.rewrite(
-    new URL(`/_sites/${siteId}${pathname}`, request.url)
+  const url = new URL(
+    `/_sites/${siteId}${request.nextUrl.pathname}`,
+    request.url
   );
+  console.log("Rewriting to:", url.toString());
+
+  return NextResponse.rewrite(url);
 }
 
 export const config = {
-  matcher: ["/((?!_sites|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    /*
+     * Match all paths except for:
+     * 1. /api routes
+     * 2. /_next (Next.js internals)
+     * 3. /_sites (our internal site pages)
+     * 4. /static (static files)
+     * 5. /favicon.ico, /sitemap.xml (public files)
+     */
+    "/((?!api|_next|_sites|static|favicon.ico).*)",
+  ],
 };
