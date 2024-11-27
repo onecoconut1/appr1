@@ -12,6 +12,11 @@ export default function AboutPage({ siteConfig }) {
 
 export async function getStaticPaths() {
   // Generate paths for all sites
+  const domains = {
+    "r1.caashishkapoor.com": "r1-portal",
+    "r2.caashishkapoor.com": "r2-portal",
+  };
+
   const sites = Object.values(domains);
 
   const paths = sites.map((site) => ({
