@@ -45,7 +45,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const siteConfig = await getSiteConfig(params.site);
-
+  console.log(siteConfig);
   return {
     props: {
       siteConfig,
