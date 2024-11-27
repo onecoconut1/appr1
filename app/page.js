@@ -12,7 +12,18 @@ export default async function Home() {
       <h1>{siteConfig.name}</h1>
       <div>
         {posts.map((post) => (
-          <article key={post.id}>
+          <article
+            key={post.id}
+            style={{
+              marginBottom: "20px",
+              padding: "15px",
+              borderRadius: "8px",
+              backgroundColor:
+                siteConfig.theme.background === "#FFFFFF"
+                  ? "#f5f5f5"
+                  : "#2a2a2a",
+            }}
+          >
             <h2>{post.title}</h2>
             <p>{post.content}</p>
           </article>

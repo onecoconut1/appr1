@@ -1,5 +1,18 @@
 import { headers } from "next/headers";
 import { getSiteConfig } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+export async function generateMetadata() {
+  const headersList = headers();
+  const domain = headersList.get("host");
+  const siteConfig = await getSiteConfig(domain);
+
+  return {
+    title: siteConfig.name,
+    // Add more metadata as needed
+  };
+}
 
 export default async function RootLayout({ children }) {
   const headersList = headers();
@@ -14,32 +27,21 @@ export default async function RootLayout({ children }) {
           color: siteConfig.theme.text,
         }}
       >
-        <nav style={{ backgroundColor: siteConfig.theme.primary }}>
-          {siteConfig.layout.navbar.links.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              style={{ color: siteConfig.theme.text, margin: "0 10px" }}
-            >
-              {link.text}
-            </a>
-          ))}
-        </nav>
+        {/* Static Navbar */}
+        <Navbar config={siteConfig} />
 
-        <main>{children}</main>
+        {/* Dynamic Content Area */}
+        <main
+          style={{
+            padding: "20px",
+            minHeight: "calc(100vh - 200px)", // Adjust based on your navbar/footer height
+          }}
+        >
+          {children}
+        </main>
 
-        <footer style={{ backgroundColor: siteConfig.theme.secondary }}>
-          <p>{siteConfig.layout.footer.text}</p>
-          {siteConfig.layout.footer.links.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              style={{ color: siteConfig.theme.text, margin: "0 10px" }}
-            >
-              {link.text}
-            </a>
-          ))}
-        </footer>
+        {/* Static Footer */}
+        <Footer config={siteConfig} />
       </body>
     </html>
   );
