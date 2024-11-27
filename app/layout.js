@@ -1,23 +1,15 @@
 import { headers } from "next/headers";
-import { getSiteConfig } from "@/lib/utils";
+import { getCachedSiteConfig } from "@/lib/cache";
+import { getDomainFromHeaders } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-export async function generateMetadata() {
-  const headersList = headers();
-  const domain = headersList.get("host");
-  const siteConfig = await getSiteConfig(domain);
-
-  return {
-    title: siteConfig.name,
-    // Add more metadata as needed
-  };
-}
+import ErrorBoundary from "@/components/error-boundary";
+import "./globals.css";
 
 export default async function RootLayout({ children }) {
   const headersList = headers();
-  const domain = headersList.get("host");
-  const siteConfig = await getSiteConfig(domain);
+  const domain = getDomainFromHeaders(headersList);
+  const siteConfig = await getCachedSiteConfig(domain);
 
   return (
     <html lang="en">
@@ -25,23 +17,24 @@ export default async function RootLayout({ children }) {
         style={{
           backgroundColor: siteConfig.theme.background,
           color: siteConfig.theme.text,
+          margin: 0,
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        {/* Static Navbar */}
-        <Navbar config={siteConfig} />
-
-        {/* Dynamic Content Area */}
-        <main
-          style={{
-            padding: "20px",
-            minHeight: "calc(100vh - 200px)", // Adjust based on your navbar/footer height
-          }}
-        >
-          {children}
-        </main>
-
-        {/* Static Footer */}
-        <Footer config={siteConfig} />
+        <ErrorBoundary>
+          <Navbar config={siteConfig} />
+          <main
+            style={{
+              padding: "20px",
+              flex: "1 0 auto",
+            }}
+          >
+            {children}
+          </main>
+          <Footer config={siteConfig} />
+        </ErrorBoundary>
       </body>
     </html>
   );

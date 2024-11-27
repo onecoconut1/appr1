@@ -1,16 +1,33 @@
-export default function Footer({ config }) {
+"use client";
+
+import { memo } from "react";
+import Link from "next/link";
+
+const Footer = memo(function Footer({ config }) {
   return (
-    <footer style={{ backgroundColor: config.theme.secondary }}>
+    <footer
+      style={{
+        backgroundColor: config.theme.secondary,
+        padding: "20px",
+        marginTop: "auto",
+      }}
+    >
       <p>{config.layout.footer.text}</p>
       {config.layout.footer.links.map((link, index) => (
-        <a
+        <Link
           key={index}
           href={link.href}
-          style={{ color: config.theme.text, margin: "0 10px" }}
+          style={{
+            color: config.theme.text,
+            margin: "0 10px",
+            textDecoration: "none",
+          }}
         >
           {link.text}
-        </a>
+        </Link>
       ))}
     </footer>
   );
-}
+});
+
+export default Footer;
