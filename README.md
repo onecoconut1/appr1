@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Testing 1
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Testing 2
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
