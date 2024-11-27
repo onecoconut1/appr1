@@ -1,0 +1,78 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Site {
+  id        String   @id @default(cuid())
+  domain    String   @unique
+  name      String
+  theme     Theme?
+  layout    Layout?
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Theme {
+  id         String @id @default(cuid())
+  primary    String
+  secondary  String
+  background String
+  text       String
+  site       Site   @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  siteId     String @unique
+}
+
+model Layout {
+  id        String       @id @default(cuid())
+  navbar    NavBar?
+  footer    Footer?
+  site      Site        @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  siteId    String      @unique
+}
+
+model NavBar {
+  id       String      @id @default(cuid())
+  links    NavLink[]
+  layout   Layout      @relation(fields: [layoutId], references: [id], onDelete: Cascade)
+  layoutId String      @unique
+}
+
+model Footer {
+  id       String      @id @default(cuid())
+  text     String
+  links    FooterLink[]
+  layout   Layout      @relation(fields: [layoutId], references: [id], onDelete: Cascade)
+  layoutId String      @unique
+}
+
+model NavLink {
+  id        String   @id @default(cuid())
+  text      String
+  href      String
+  navbar    NavBar   @relation(fields: [navbarId], references: [id], onDelete: Cascade)
+  navbarId  String
+}
+
+model FooterLink {
+  id        String   @id @default(cuid())
+  text      String
+  href      String
+  footer    Footer   @relation(fields: [footerId], references: [id], onDelete: Cascade)
+  footerId  String
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  siteId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
