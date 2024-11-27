@@ -48,6 +48,6 @@ export async function getStaticProps({ params }) {
     props: {
       siteConfig,
     },
-    revalidate: 3600,
+    // revalidate: 3600,
   };
 }
