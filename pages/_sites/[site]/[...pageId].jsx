@@ -1,6 +1,5 @@
 import SiteLayout from "@/components/layouts/SiteLayout";
-import { getSiteConfig } from "@/lib/getSiteConfig";
-import { getPageData } from "@/lib/fakeDatabase";
+import { getSiteConfig, getPageData } from "@/lib/fakeDatabase";
 import { sites } from "@/config/sites";
 
 export default function DynamicPage({ siteConfig, pageData, path }) {
@@ -63,8 +62,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const siteConfig = await getSiteConfig(params.site);
-  const pageData = await getPageData(params.site, params.pageId);
+  const [siteConfig, pageData] = await Promise.all([
+    getSiteConfig(params.site),
+    getPageData(params.site, params.pageId),
+  ]);
 
   if (!siteConfig || !pageData) {
     return {
