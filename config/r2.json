@@ -13,10 +13,10 @@
   },
   "navigation": {
     "primary": [
-      { "label": "Home", "path": "/" },
-      { "label": "Programs", "path": "/programs" },
-      { "label": "Campus Life", "path": "/campus" },
-      { "label": "Contact", "path": "/contact" }
+      { "label": "R2 Home", "path": "/" },
+      { "label": "Testing 1", "path": "/Testing" },
+      { "label": "Testing 2", "path": "/campus" },
+      { "label": "Testing 3", "path": "/contact" }
     ]
   }
 }
