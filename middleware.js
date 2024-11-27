@@ -1,26 +1,20 @@
+// middleware.js
 import { NextResponse } from "next/server";
-
-const domains = {
-  "r1.caashishkapoor.com": "r1",
-  "r2.caashishkapoor.com": "r2",
-};
+import { domains } from "./config/sites";
 
 export function middleware(request) {
   const hostname = request.headers.get("host") || "";
   const pathname = request.nextUrl.pathname;
 
-  // Get exact domain match
   const siteId = domains[hostname] || "default";
 
-  // For dynamic API routes that need site identification
-  if (pathname.startsWith("/api/")) {
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("x-site-id", siteId);
-    return NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    });
+  // Skip rewrite for _next paths and API
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes("/favicon.ico")
+  ) {
+    return NextResponse.next();
   }
 
   // Rewrite to the site-specific pages
@@ -30,5 +24,13 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/((?!_sites|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    /*
+     * Match all paths except for:
+     * 1. /api routes
+     * 2. /_next (Next.js internals)
+     * 3. /favicon.ico, /sitemap.xml (static files)
+     */
+    "/((?!api|_next|favicon.ico).*)",
+  ],
 };

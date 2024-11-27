@@ -1,22 +1,11 @@
 {
-  "name": "R2",
+  "name": "R2 Site",
   "theme": {
-    "primary": "#2563eb",
-    "secondary": "#1e40af",
-    "background": "#ffffff",
-    "text": "#1f2937"
+    "primary": "#16a34a",
+    "secondary": "#15803d"
   },
   "features": {
-    "enableBlog": true,
-    "enableEvents": true,
-    "enableCourses": true
-  },
-  "navigation": {
-    "primary": [
-      { "label": "R2 Home", "path": "/" },
-      { "label": "Testing 1", "path": "/Testing" },
-      { "label": "Testing 2", "path": "/campus" },
-      { "label": "Testing 3", "path": "/contact" }
-    ]
+    "enableCourses": false,
+    "enableEvents": true
   }
 }

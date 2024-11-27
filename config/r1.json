@@ -1,22 +1,11 @@
 {
-  "name": "R1",
+  "name": "R1 Site",
   "theme": {
     "primary": "#2563eb",
-    "secondary": "#1e40af",
-    "background": "#ffffff",
-    "text": "#1f2937"
+    "secondary": "#1e40af"
   },
   "features": {
-    "enableBlog": true,
-    "enableEvents": true,
-    "enableCourses": true
-  },
-  "navigation": {
-    "primary": [
-      { "label": "Home", "path": "/" },
-      { "label": "Programs", "path": "/programs" },
-      { "label": "Campus Life", "path": "/campus" },
-      { "label": "Contact", "path": "/contact" }
-    ]
+    "enableCourses": true,
+    "enableEvents": true
   }
 }
