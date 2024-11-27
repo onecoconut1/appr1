@@ -4,7 +4,6 @@ const nextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        // Add your domain mappings for development
         {
           source: "/:path*",
           has: [
@@ -12,14 +11,19 @@ const nextConfig = {
               type: "host",
               value: "r1.caashishkapoor.com",
             },
+          ],
+          destination: "/_sites/r1/:path*",
+        },
+        {
+          source: "/:path*",
+          has: [
             {
               type: "host",
               value: "r2.caashishkapoor.com",
             },
           ],
-          destination: "/_sites/renocampus/:path*",
+          destination: "/_sites/r2/:path*",
         },
-        // Add similar rules for other domains
       ],
     };
   },
