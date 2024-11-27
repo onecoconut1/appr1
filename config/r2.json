@@ -2,7 +2,9 @@
   "name": "R2 Site",
   "theme": {
     "primary": "#16a34a",
-    "secondary": "#15803d"
+    "secondary": "#15803d",
+    "background": "#ffffff",
+    "text": "#000000"
   },
   "features": {
     "enableCourses": false,

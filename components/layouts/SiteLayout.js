@@ -1,41 +1,35 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-
+// components/layouts/SiteLayout.js
 export default function SiteLayout({ children, siteConfig }) {
-  const router = useRouter();
+  if (!siteConfig || !siteConfig.theme) {
+    // Provide fallback values if siteConfig is not loaded properly
+    siteConfig = {
+      name: "Default Site",
+      theme: {
+        primary: "#000000",
+        secondary: "#333333",
+        background: "#ffffff",
+        text: "#000000",
+      },
+    };
+  }
 
   return (
     <div
       style={{
         backgroundColor: siteConfig.theme.background,
         color: siteConfig.theme.text,
+        minHeight: "100vh",
       }}
     >
-      <header style={{ backgroundColor: siteConfig.theme.primary }}>
-        <nav>
-          {siteConfig.navigation.primary.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              style={{
-                color:
-                  router.pathname === item.path
-                    ? siteConfig.theme.secondary
-                    : "#fff",
-                marginRight: "1rem",
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+      <header
+        style={{
+          backgroundColor: siteConfig.theme.primary,
+          padding: "1rem",
+        }}
+      >
+        <h1 style={{ color: "#ffffff" }}>{siteConfig.name}</h1>
       </header>
-      <main>{children}</main>
-      <footer style={{ backgroundColor: siteConfig.theme.secondary }}>
-        <p>
-          © {new Date().getFullYear()} {siteConfig.name}
-        </p>
-      </footer>
+      <main style={{ padding: "1rem" }}>{children}</main>
     </div>
   );
 }

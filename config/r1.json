@@ -2,7 +2,9 @@
   "name": "R1 Site",
   "theme": {
     "primary": "#2563eb",
-    "secondary": "#1e40af"
+    "secondary": "#1e40af",
+    "background": "#ffffff",
+    "text": "#000000"
   },
   "features": {
     "enableCourses": true,

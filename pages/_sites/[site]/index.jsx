@@ -8,13 +8,13 @@ export default function HomePage({ siteConfig }) {
     <SiteLayout siteConfig={siteConfig}>
       <h1>Welcome to {siteConfig.name}</h1>
       <div>
-        {siteConfig.features.enableCourses && (
+        {siteConfig.features?.enableCourses && (
           <section>
             <h2>Our Courses</h2>
           </section>
         )}
 
-        {siteConfig.features.enableEvents && (
+        {siteConfig.features?.enableEvents && (
           <section>
             <h2>Upcoming Events</h2>
           </section>
@@ -37,6 +37,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const siteConfig = await getSiteConfig(params.site);
+
+  if (!siteConfig) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
