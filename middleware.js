@@ -1,29 +1,36 @@
 // middleware.js
 import { NextResponse } from "next/server";
-
-const domains = {
-  "r1.caashishkapoor.com": "r1",
-  "r2.caashishkapoor.com": "r2",
-};
+import { domains } from "./config/sites";
 
 export function middleware(request) {
-  const hostname = request.headers.get("host");
-  const siteId = domains[hostname];
+  const hostname = request.headers.get("host") || "";
+  const pathname = request.nextUrl.pathname;
 
-  if (!siteId) {
-    return new NextResponse("Not Found", { status: 404 });
+  const siteId = domains[hostname] || "default";
+
+  // Skip rewrite for _next paths and API
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes("/favicon.ico")
+  ) {
+    return NextResponse.next();
   }
 
-  // Create new URL using request.url as base
-  // This preserves the protocol and host
-  const currentUrl = new URL(request.url);
-
-  // Update pathname to include _sites/[site]
-  currentUrl.pathname = `/_sites/${siteId}${request.nextUrl.pathname}`;
-
-  return NextResponse.rewrite(currentUrl);
+  // Rewrite to the site-specific pages
+  return NextResponse.rewrite(
+    new URL(`/_sites/${siteId}${pathname}`, request.url)
+  );
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_sites|static|favicon.ico).*)"],
+  matcher: [
+    /*
+     * Match all paths except for:
+     * 1. /api routes
+     * 2. /_next (Next.js internals)
+     * 3. /favicon.ico, /sitemap.xml (static files)
+     */
+    "/((?!api|_next|favicon.ico).*)",
+  ],
 };
