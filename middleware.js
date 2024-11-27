@@ -14,8 +14,11 @@ export function middleware(request) {
     return new NextResponse("Not Found", { status: 404 });
   }
 
+  // Get the pathname, use / if empty
+  const pathname = request.nextUrl.pathname || "/";
+
   return NextResponse.rewrite(
-    new URL(`/_sites/${siteId}${request.nextUrl.pathname}`, request.url)
+    new URL(`/_sites/${siteId}${pathname}`, request.url)
   );
 }
 
