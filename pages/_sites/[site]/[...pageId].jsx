@@ -55,24 +55,9 @@ export default function DynamicPage({ siteConfig, pageData, path }) {
 }
 
 export async function getStaticPaths() {
-  // Example paths - you can add more paths that you want to pre-render
-  const dynamicPaths = [
-    { path: ["about"] },
-    { path: ["contact"] },
-    { path: ["courses", "web-development"] },
-  ];
-
-  const paths = sites.flatMap((site) =>
-    dynamicPaths.map(({ path }) => ({
-      params: {
-        site,
-        pageId: path,
-      },
-    }))
-  );
-
+  // Return empty paths array - all pages will be generated on demand
   return {
-    paths,
+    paths: [],
     fallback: "blocking",
   };
 }
