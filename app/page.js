@@ -1,15 +1,14 @@
 import { Suspense } from "react";
 import { headers } from "next/headers";
-import { getCachedSiteConfig, getCachedPosts } from "@/lib/cache";
-import { getDomainFromHeaders } from "@/lib/utils";
+import { getDomainFromHeaders, getSiteConfig } from "@/lib/utils";
 import Loading from "@/components/loading";
 
 // Posts component for better code splitting
 async function Posts() {
   const headersList = headers();
   const domain = getDomainFromHeaders(headersList);
-  const posts = await getCachedPosts(domain);
-  const siteConfig = await getCachedSiteConfig(domain);
+  const posts = await getPosts(domain);
+  const siteConfig = await getSiteConfig(domain);
 
   return (
     <div>
@@ -40,7 +39,7 @@ async function Posts() {
 export default async function Home() {
   const headersList = headers();
   const domain = getDomainFromHeaders(headersList);
-  const siteConfig = await getCachedSiteConfig(domain);
+  const siteConfig = await getSiteConfig(domain);
 
   return (
     <div>

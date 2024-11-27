@@ -1,6 +1,5 @@
 import { headers } from "next/headers";
-import { getCachedSiteConfig } from "@/lib/cache";
-import { getDomainFromHeaders } from "@/lib/utils";
+import { getDomainFromHeaders, getSiteConfig } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ErrorBoundary from "@/components/error-boundary";
@@ -9,7 +8,7 @@ import "./globals.css";
 export default async function RootLayout({ children }) {
   const headersList = headers();
   const domain = getDomainFromHeaders(headersList);
-  const siteConfig = await getCachedSiteConfig(domain);
+  const siteConfig = await getSiteConfig(domain);
 
   return (
     <html lang="en">
